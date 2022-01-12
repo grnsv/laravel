@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Routing\Route as RoutingRoute;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/about', fn () => view('about'));
+
+Route::get('/news', fn () => view('news'));
+
+Route::get('/news/{id}', fn (string $id) => view('news', ['id' => $id]));

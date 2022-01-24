@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +35,7 @@ Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
         ->where('newsId', '\d+')
         ->name('show');
 });
+
+Route::post('/feedback', [FeedbackController::class, 'success'])->name('feedback');
+
+Route::post('/order', [OrderController::class, 'success'])->name('order');

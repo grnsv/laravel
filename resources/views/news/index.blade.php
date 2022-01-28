@@ -29,20 +29,20 @@
 
                 <div class="card-body">
                     <h6>
-                        <a href="{{ route('news.show', ['newsId' => $news['id']]) }}">
-                            <strong>{{ $news['title'] }}</strong>
+                        <a href="{{ route('news.show', ['newsSlug' => $news->slug]) }}">
+                            <strong>{{ $news->title }}</strong>
                         </a>
                     </h6>
-                    <p><strong>Автор:</strong> {{ $news['author'] }}</p>
-                    <p class="card-text">{!! $news['description'] !!}</p>
+                    <p><strong>Автор:</strong> {{ $news->author }}</p>
+                    <p class="card-text">{!! $news->description !!}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a href="{{ route('news.show', ['newsId' => $news['id']]) }}"
+                            <a href="{{ route('news.show', ['newsSlug' => $news->slug]) }}"
                                 class="btn btn-sm btn-outline-secondary">
                                 Смотреть подробнее
                             </a>
                         </div>
-                        <small class="text-muted">Дата добавления:<br>{{ $news['created_at'] }}</small>
+                        <small class="text-muted">Дата добавления:<br>{{ $news->created_at }}</small>
                     </div>
                 </div>
             </div>

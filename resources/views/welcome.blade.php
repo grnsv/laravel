@@ -14,11 +14,7 @@
 
 @section('content')
 <div class="container">
-    @if ($errors->any())
-    @foreach ($errors->all() as $error)
-    <x-alert type="danger" :message="$error"></x-alert>
-    @endforeach
-    @endif
+    @include('inc.message')
     <h3>Добро пожаловать на сайт о новостях со всех концов света</h3>
     <form action="{{ route('order') }}" method="post">
         @csrf

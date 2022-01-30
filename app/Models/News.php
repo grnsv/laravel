@@ -4,41 +4,49 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class News extends Model
 {
     use HasFactory;
 
     protected $table = 'news';
-    protected $availableFields = [
-        'news.id',
-        'news.title',
-        'news.slug',
-        'news.author',
-        'news.status',
-        'news.description',
-        'news.created_at'
+
+    public static $availableFields = [
+        'id',
+        'title',
+        'slug',
+        'author',
+        'status',
+        'description',
+        'created_at'
     ];
 
-    public function getNews(string $categorySlug): array
+    protected $fillable = [
+        'title',
+        'slug',
+        'author',
+        'status',
+        'description'
+    ];
+
+    public function getTitleAttribute($value)
     {
-        return DB::table('categories')
-            ->join('categories_has_news', 'categories.id', '=', 'categories_has_news.category_id')
-            ->join('news', 'categories_has_news.news_id', '=', 'news.id')
-            ->select($this->availableFields)
-            ->where('categories.slug', '=', $categorySlug)
-            ->limit(100)
-            ->get()
-            ->toArray();
+        return mb_strtoupper($value);
     }
 
-    public function getNewsBySlug(string $newsSlug)
+    protected $casts = [
+        'isImage' => 'boolean'
+    ];
+
+    public function categories(): BelongsToMany
     {
-        return DB::table($this->table)
-            ->select($this->availableFields)
-            ->where('slug', '=', $newsSlug)
-            ->get()
-            ->toArray();
+        return $this->belongsToMany(Category::class, 'categories_has_news', 'news_id', 'category_id');
+    }
+
+    public function source(): BelongsTo
+    {
+        return $this->belongsTo(Source::class);
     }
 }

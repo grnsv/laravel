@@ -11,16 +11,16 @@ class NewsController extends Controller
     public function index(?string $categorySlug = null)
     {
         if (!is_null($categorySlug)) {
-            $newsList = (new News())->getNews($categorySlug);
+            $category = Category::where('slug', '=', $categorySlug)->first();
+            $newsList = $category->news()->paginate(9);
             return view('news.index', ['newsList' => $newsList]);
         }
-        $categories = (new Category())->getCategories();
+        $categories = Category::select(Category::$availableFields)->paginate(10);
         return view('categories', ['categories' => $categories]);
     }
 
-    public function show(string $newsSlug)
+    public function show(News $news)
     {
-        $news = (new News())->getNewsBySlug($newsSlug)[0];
         return view('news.show', ['news' => $news]);
     }
 }

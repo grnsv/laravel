@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('title')
-Добавить категорию @parent
+Редактировать категорию @parent
 @stop
 
 @section('header')
-<h1 class="h2">Добавить категорию</h1>
+<h1 class="h2">Редактировать категорию</h1>
 <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group me-2">
     </div>
@@ -14,15 +14,16 @@
 
 @section('content')
 @include('inc.message')
-<form action="{{ route('admin.categories.store') }}" method="post">
+<form action="{{ route('admin.categories.update', ['category' => $category]) }}" method="post">
     @csrf
+    @method('put')
     <div class="form-group">
         <label for="title">Название</label>
-        <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
+        <input type="text" name="title" id="title" class="form-control" value="{{ $category->title }}" required>
     </div>
     <div class="form-group">
         <label for="description">Описание</label>
-        <textarea name="description" id="description" class="form-control">{!! old('description') !!}</textarea>
+        <textarea name="description" id="description" class="form-control">{!! $category->description !!}</textarea>
     </div>
     <br>
     <button type="submit" class="btn btn-success" style="float: right;">Сохранить</button>

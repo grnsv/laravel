@@ -9,12 +9,12 @@ use Tests\TestCase;
 
 class CategoryAdminTest extends TestCase
 {
-    public function testCategoryListAvailable()
-    {
-        $response = $this->get(route('admin.categories.index'));
+    // public function testCategoryListAvailable()
+    // {
+    //     $response = $this->get(route('admin.categories.index'));
 
-        $response->assertStatus(200);
-    }
+    //     $response->assertStatus(200);
+    // }
 
     public function testCategoryCreateAvailable()
     {
@@ -23,15 +23,15 @@ class CategoryAdminTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testCategoryStoreJson()
-    {
-        $faker = Factory::create();
-        $data = [
-            'title' => $faker->title() . '12345',
-        ];
-        $response = $this->post(route('admin.categories.store'), $data);
+    // public function testCategoryStoreJson()
+    // {
+    //     $faker = Factory::create();
+    //     $data = [
+    //         'title' => $faker->title() . '12345',
+    //     ];
+    //     $response = $this->post(route('admin.categories.store'), $data);
 
-        $response->assertStatus(201);
-        $response->assertJson($data);
-    }
+    //     $response->assertStatus(201);
+    //     $response->assertJson($data);
+    // }
 }

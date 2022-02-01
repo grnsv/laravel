@@ -31,11 +31,11 @@
     </div>
     <div class="form-group">
         <label for="author">Автор</label>
-        <input type="text" name="author" id="author" class="form-control" value="{{ old('author') }}">
+        <input type="text" name="author" id="author" class="form-control" value="{{ old('author') }}" required>
     </div>
     <div class="form-group">
         <label for="status">Статус</label>
-        <select name="status" id="status" class="form-control">
+        <select name="status" id="status" class="form-control" required>
             <option value="draft" @if( old('status')==='draft' ) selected @endif>DRAFT</option>
             <option value="active" @if( old('status')==='active' ) selected @endif>ACTIVE</option>
             <option value="blocked" @if( old('status')==='blocked' ) selected @endif>BLOCKED</option>

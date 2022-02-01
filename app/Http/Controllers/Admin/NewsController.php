@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use App\Http\Requests\News\CreateRequest;
+use App\Http\Requests\News\UpdateRequest;
 
 class NewsController extends Controller
 {
@@ -35,23 +36,21 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5']
-        ]);
-        $data = $request->only(['title', 'author', 'status', 'description']) + ['slug' => Str::slug($request->title)];
+        $data = $request->validated() + ['slug' => Str::slug($request->input('title'))];
 
         $created = News::create($data);
         if ($created) {
             $created->categories()->attach($request->input('categories'));
-            return redirect()->route('admin.news.index')->with('success', 'Запись успешно добавлена');
+            return redirect()->route('admin.news.index')
+                ->with('success', __('messages.admin.news.created.success'));
         }
 
-        return back()->with('error', 'Не удалось добавить запись')->withInput();
+        return back()->with('error', __('messages.admin.news.created.error'))->withInput();
     }
 
     /**
@@ -80,24 +79,22 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateRequest $request
      * @param  News $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(UpdateRequest $request, News $news)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5']
-        ]);
-        $data = $request->only(['title', 'author', 'status', 'description']) + ['slug' => Str::slug($request->title)];
+        $data = $request->validated() + ['slug' => Str::slug($request->input('title'))];
 
         $updated = $news->fill($data)->save();
         if ($updated) {
             $news->categories()->sync($request->input('categories'));
-            return redirect()->route('admin.news.index')->with('success', 'Запись успешно обновлена');
+            return redirect()->route('admin.news.index')
+                ->with('success', __('messages.admin.news.updated.success'));
         }
 
-        return back()->with('error', 'Не удалось обновить запись')->withInput();
+        return back()->with('error', __('messages.admin.news.updated.error'))->withInput();
     }
 
     /**
@@ -108,6 +105,12 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+        try {
+            $news->delete();
+            return response()->json('ok');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('News error destroy', [$e]);
+            return response()->json('error', 400);
+        }
     }
 }

@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('meta_tags')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('title')
 Список категорий @parent
 @stop
@@ -36,7 +40,7 @@
                 <td>
                     <a href="{{ route('admin.categories.edit', ['category' => $category]) }}">Ред.</a>
                     &nbsp;
-                    <a href="#">Уд.</a>
+                    <a href="javascript:;" class="delete" rel="{{ $category->id }}">Уд.</a>
                 </td>
             </tr>
             @endforeach
@@ -45,3 +49,33 @@
     {{ $categories->links() }}
 </div>
 @endsection
+
+@push('js')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const elems = document.querySelectorAll('.delete');
+        elems.forEach(element => {
+            element.addEventListener('click', function() {
+                const id = this.getAttribute('rel');
+                if (confirm(`Подтвердите удаление категории с #ID ${id}?`)) {
+                    send(`/admin/categories/${id}`).then(() => {
+                        location.reload();
+                    });
+                }
+            });
+        });
+    });
+
+    async function send(url) {
+        let response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        });
+
+        let result = await response.json();
+        return result.ok;
+    }
+</script>
+@endpush

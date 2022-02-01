@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use App\Http\Requests\Category\CreateRequest;
+use App\Http\Requests\Category\UpdateRequest;
 
 class CategoryController extends Controller
 {
@@ -33,22 +34,20 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5']
-        ]);
-        $data = $request->only(['title', 'description']) + ['slug' => Str::slug($request->title)];
+        $data = $request->validated() + ['slug' => Str::slug($request->input('title'))];
 
         $created = Category::create($data);
         if ($created) {
-            return redirect()->route('admin.categories.index')->with('success', 'Запись успешно добавлена');
+            return redirect()->route('admin.categories.index')
+                ->with('success', __('messages.admin.categories.created.success'));
         }
 
-        return back()->with('error', 'Не удалось добавить запись')->withInput();
+        return back()->with('error', __('messages.admin.categories.created.error'))->withInput();
     }
 
     /**
@@ -76,23 +75,21 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateRequest $request
      * @param  Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateRequest $request, Category $category)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5']
-        ]);
-        $data = $request->only(['title', 'description']) + ['slug' => Str::slug($request->title)];
+        $data = $request->validated() + ['slug' => Str::slug($request->input('title'))];
 
         $updated = $category->fill($data)->save();
         if ($updated) {
-            return redirect()->route('admin.categories.index')->with('success', 'Запись успешно обновлена');
+            return redirect()->route('admin.categories.index')
+                ->with('success', __('messages.admin.categories.updated.success'));
         }
 
-        return back()->with('error', 'Не удалось обновить запись')->withInput();
+        return back()->with('error', __('messages.admin.categories.updated.error'))->withInput();
     }
 
     /**
@@ -103,6 +100,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        try {
+            $category->delete();
+            return response()->json('ok');
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Category error destroy', [$e]);
+            return response()->json('error', 400);
+        }
     }
 }

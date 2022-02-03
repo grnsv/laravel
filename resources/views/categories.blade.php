@@ -19,7 +19,7 @@
             @forelse($categories as $category)
             <li>
                 <h2>
-                    <a href="{{ route('news.index', ['categoryId' => $category['id']]) }}">{{ $category['title'] }}</a>
+                    <a href="{{ route('news.index', ['categorySlug' => $category->slug]) }}">{{ $category->title }}</a>
                 </h2>
             </li>
 

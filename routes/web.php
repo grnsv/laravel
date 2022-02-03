@@ -28,12 +28,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
 });
 
 Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
-    Route::get('/{categoryId?}', [NewsController::class, 'index'])
-        ->where('categoryId', '\d+')
-        ->name('index');
-    Route::get('/show/{newsId}', [NewsController::class, 'show'])
-        ->where('newsId', '\d+')
-        ->name('show');
+    Route::get('/{categorySlug?}', [NewsController::class, 'index'])->name('index');
+    Route::get('/show/{newsSlug}', [NewsController::class, 'show'])->name('show');
 });
 
 Route::post('/feedback', [FeedbackController::class, 'success'])->name('feedback');

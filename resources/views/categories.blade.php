@@ -19,7 +19,7 @@
             @forelse($categories as $category)
             <li>
                 <h2>
-                    <a href="{{ route('news.index', ['categorySlug' => $category->slug]) }}">{{ $category->title }}</a>
+                    <a href="{{ route('news.index', ['category' => $category]) }}">{{ $category->title }}</a>
                 </h2>
             </li>
 
@@ -31,5 +31,6 @@
             @endforelse
         </ul>
     </div>
+    {{ $categories->links() }}
 </div>
 @endsection

@@ -29,7 +29,7 @@
 
                 <div class="card-body">
                     <h6>
-                        <a href="{{ route('news.show', ['newsSlug' => $news->slug]) }}">
+                        <a href="{{ route('news.show', ['news' => $news]) }}">
                             <strong>{{ $news->title }}</strong>
                         </a>
                     </h6>
@@ -37,7 +37,7 @@
                     <p class="card-text">{!! $news->description !!}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a href="{{ route('news.show', ['newsSlug' => $news->slug]) }}"
+                            <a href="{{ route('news.show', ['news' => $news]) }}"
                                 class="btn btn-sm btn-outline-secondary">
                                 Смотреть подробнее
                             </a>
@@ -54,5 +54,6 @@
         @endforelse
 
     </div>
+    {{ $newsList->links() }}
 </div>
 @endsection

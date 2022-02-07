@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
 @section('title')
-Главная @parent
+Главная - @parent
 @stop
 
 @section('header')
 <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">GeekBrains News</h1>
+        <h1 class="fw-light">Привет, {{ Auth::user()->name }}</h1>
     </div>
 </div>
 @endsection
@@ -15,7 +15,6 @@
 @section('content')
 <div class="container">
     @include('inc.message')
-    <h3>Добро пожаловать на сайт о новостях со всех концов света</h3>
     <form action="{{ route('order') }}" method="post">
         @csrf
         <fieldset class="form-group border p-2">

@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-Список категорий @parent
+Список категорий - @parent
 @stop
 
 @section('header')

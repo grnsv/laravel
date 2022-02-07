@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Список категорий новостей @parent
+Список категорий новостей - @parent
 @stop
 
 @section('header')

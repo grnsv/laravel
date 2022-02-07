@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Добавить категорию @parent
+Добавить категорию - @parent
 @stop
 
 @section('header')

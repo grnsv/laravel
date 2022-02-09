@@ -29,10 +29,12 @@
     <div class="form-group">
         <label for="title">Заголовок</label>
         <input type="text" name="title" id="title" class="form-control" value="{{ $news->title }}" required>
+        @error('title') <strong style="color: red;">{{ $message }}</strong> @enderror
     </div>
     <div class="form-group">
         <label for="author">Автор</label>
         <input type="text" name="author" id="author" class="form-control" value="{{ $news->author }}">
+        @error('author') <strong style="color: red;">{{ $message }}</strong> @enderror
     </div>
     <div class="form-group">
         <label for="status">Статус</label>
@@ -41,10 +43,12 @@
             <option value="active" @if( $news->status==='active' ) selected @endif>ACTIVE</option>
             <option value="blocked" @if( $news->status==='blocked' ) selected @endif>BLOCKED</option>
         </select>
+        @error('status') <strong style="color: red;">{{ $message }}</strong> @enderror
     </div>
     <div class="form-group">
         <label for="description">Описание</label>
         <textarea name="description" id="description" class="form-control">{!! $news->description !!}</textarea>
+        @error('description') <strong style="color: red;">{{ $message }}</strong> @enderror
     </div>
     <br>
     <button type="submit" class="btn btn-success" style="float: right;">Сохранить</button>

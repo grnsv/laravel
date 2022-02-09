@@ -12,7 +12,7 @@ class NewsController extends Controller
     {
         if (!is_null($categorySlug)) {
             $category = Category::where('slug', '=', $categorySlug)->first();
-            $newsList = $category->news()->paginate(9);
+            $newsList = $category->news()->where('status', '=', 'active')->paginate(9);
             return view('news.index', ['newsList' => $newsList]);
         }
         $categories = Category::select(Category::$availableFields)->paginate(10);

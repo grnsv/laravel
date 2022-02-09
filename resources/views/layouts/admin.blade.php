@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @yield('meta_tags')
     <title>@section('title') - GeekBrains News @show</title>
 
     <!-- Bootstrap core CSS -->

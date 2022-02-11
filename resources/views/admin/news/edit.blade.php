@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Редактировать новость @parent
+Редактировать новость - @parent
 @stop
 
 @section('header')

@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Validation Language Lines
-|--------------------------------------------------------------------------
-|
-| The following language lines contain the default error messages used by
-| the validator class. Some of these rules have multiple versions such
-| as the size rules. Feel free to tweak each of these messages here.
-|
-*/
-
 return [
     'accepted'             => 'Вы должны принять :attribute.',
     'accepted_if'          => 'Поле :attribute должно быть принято, когда :other соответствует :value.',
@@ -127,16 +116,15 @@ return [
     'uploaded'             => 'Загрузка поля :attribute не удалась.',
     'url'                  => 'Поле :attribute имеет ошибочный формат URL.',
     'uuid'                 => 'Поле :attribute должно быть корректным UUID.',
+    'attributes'           => [
+        'author'      => 'Автор',
+        'description' => 'Описание',
+        'status'      => 'Статус',
+        'title'       => 'Название',
+    ],
     'custom'               => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
     ],
-
-    'attributes' => [
-        'title'       => 'Название',
-        'author'      => 'Автор',
-        'status'      => 'Статус',
-        'description' => 'Описание'
-    ]
 ];

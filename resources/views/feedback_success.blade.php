@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Отзыв принят @parent
+Отзыв принят - @parent
 @stop
 
 @section('header')

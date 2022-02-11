@@ -11,7 +11,7 @@
                     <ul class="list-unstyled">
                         <li><a href="{{ route('index') }}" class="text-white">Главная</a></li>
                         <li><a href="{{ route('news.index') }}" class="text-white">Новости</a></li>
-                        <li>@include('inc.file')</li>
+                        @include('inc.file')
                     </ul>
                 </div>
             </div>
@@ -20,7 +20,7 @@
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
             <a href="{{ route('index') }}" class="navbar-brand d-flex align-items-center">
-                <strong>GeekBrains News</strong>
+                <strong>{{ config('app.name', 'Laravel') }}</strong>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                 aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">

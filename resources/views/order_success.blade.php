@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Заказ принят @parent
+Заказ принят - @parent
 @stop
 
 @section('header')

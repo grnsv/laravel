@@ -1,10 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OrderController;
 
@@ -21,10 +24,19 @@ use App\Http\Controllers\OrderController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
-    Route::view('/', 'admin.index')->name('index');
-    Route::resource('/categories', AdminCategoryController::class);
-    Route::resource('/news', AdminNewsController::class);
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/account', AccountController::class)->name('account');
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect()->route('login');
+    })->name('account.logout');
+
+    Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
+        Route::view('/', 'admin.index')->name('index');
+        Route::resource('/categories', AdminCategoryController::class);
+        Route::resource('/news', AdminNewsController::class);
+        Route::resource('/users', AdminUserController::class);
+    });
 });
 
 Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
@@ -35,3 +47,5 @@ Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
 Route::post('/feedback', [FeedbackController::class, 'success'])->name('feedback');
 
 Route::post('/order', [OrderController::class, 'success'])->name('order');
+
+Auth::routes();

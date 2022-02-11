@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Панель управления @parent
+Панель управления - @parent
 @stop
 
 @section('header')

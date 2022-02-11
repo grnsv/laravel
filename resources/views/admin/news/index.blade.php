@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-Список новостей @parent
+Список новостей - @parent
 @stop
 
 @section('header')

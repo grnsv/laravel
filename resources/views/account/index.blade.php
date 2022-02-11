@@ -8,6 +8,9 @@
 <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Привет, {{ Auth::user()->name }}</h1>
+        @if (Auth::user()->avatar)
+        <img src="{{ Auth::user()->avatar }}" alt="avatar" style="width: 250px">
+        @endif
     </div>
 </div>
 @endsection

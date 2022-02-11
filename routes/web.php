@@ -8,8 +8,10 @@ use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::view('/', 'admin.index')->name('index');
+        Route::get('/parser', ParserController::class)->name('parser');
         Route::resource('/categories', AdminCategoryController::class);
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/users', AdminUserController::class);
@@ -49,3 +52,12 @@ Route::post('/feedback', [FeedbackController::class, 'success'])->name('feedback
 Route::post('/order', [OrderController::class, 'success'])->name('order');
 
 Auth::routes();
+
+Route::group(['as' => 'auth.', 'prefix' => 'auth/{network}', 'middleware' => 'guest'], function () {
+    Route::get('/redirect', [SocialController::class, 'redirect'])
+        ->where('network', '\w+')
+        ->name('redirect');
+    Route::get('/callback', [SocialController::class, 'callback'])
+        ->where('network', '\w+')
+        ->name('callback');
+});

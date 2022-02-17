@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Illuminate\Support\Str;
 use App\Http\Requests\Category\CreateRequest;
 use App\Http\Requests\Category\UpdateRequest;
 
@@ -39,9 +38,8 @@ class CategoryController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $data = $request->validated() + ['slug' => Str::slug($request->input('title'))];
-
-        $created = Category::create($data);
+        $validated = $request->validated();
+        $created = Category::create($validated);
         if ($created) {
             return redirect()->route('admin.categories.index')
                 ->with('success', __('messages.admin.categories.created.success'));
@@ -81,9 +79,8 @@ class CategoryController extends Controller
      */
     public function update(UpdateRequest $request, Category $category)
     {
-        $data = $request->validated() + ['slug' => Str::slug($request->input('title'))];
-
-        $updated = $category->fill($data)->save();
+        $validated = $request->validated();
+        $updated = $category->fill($validated)->save();
         if ($updated) {
             return redirect()->route('admin.categories.index')
                 ->with('success', __('messages.admin.categories.updated.success'));

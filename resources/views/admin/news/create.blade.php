@@ -14,7 +14,7 @@
 
 @section('content')
 @include('inc.message')
-<form action="{{ route('admin.news.store') }}" method="post">
+<form action="{{ route('admin.news.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
         <label for="categories">Выбрать категории</label>
@@ -32,6 +32,10 @@
     <div class="form-group">
         <label for="author">Автор</label>
         <input type="text" name="author" id="author" class="form-control" value="{{ old('author') }}" required>
+    </div>
+    <div class="form-group">
+        <label for="image">Загрузить изображение</label>
+        <input type="file" name="image" id="image" class="form-control">
     </div>
     <div class="form-group">
         <label for="status">Статус</label>

@@ -14,7 +14,7 @@
 
 @section('content')
 @include('inc.message')
-<form action="{{ route('admin.news.update', ['news' => $news]) }}" method="post">
+<form action="{{ route('admin.news.update', ['news' => $news]) }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('put')
     <div class="form-group">
@@ -37,6 +37,10 @@
         @error('author') <strong style="color: red;">{{ $message }}</strong> @enderror
     </div>
     <div class="form-group">
+        <label for="image">Загрузить изображение</label>
+        <input type="file" name="image" id="image" class="form-control">
+    </div>
+    <div class="form-group">
         <label for="status">Статус</label>
         <select name="status" id="status" class="form-control">
             <option value="draft" @if( $news->status==='draft' ) selected @endif>DRAFT</option>
@@ -54,3 +58,20 @@
     <button type="submit" class="btn btn-success" style="float: right;">Сохранить</button>
 </form>
 @endsection
+
+@push('js')
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#description' ), {
+            ckfinder: {
+                uploadUrl: '/ckfinder/connector?command=QuickUpload&type=Images&responseType=json',
+                options: {
+                    resourceType: 'Images',
+                }
+            },
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+@endpush

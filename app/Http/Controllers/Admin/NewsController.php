@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Category;
-use Illuminate\Support\Str;
 use App\Http\Requests\News\CreateRequest;
 use App\Http\Requests\News\UpdateRequest;
+use App\Services\UploadService;
 
 class NewsController extends Controller
 {
@@ -41,9 +41,11 @@ class NewsController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $data = $request->validated() + ['slug' => Str::slug($request->input('title'))];
-
-        $created = News::create($data);
+        $validated = $request->validated();
+        if ($request->hasFile('image')) {
+            $validated['image'] = app(UploadService::class)->saveFile($request->file('image'));
+        }
+        $created = News::create($validated);
         if ($created) {
             $created->categories()->attach($request->input('categories'));
             return redirect()->route('admin.news.index')
@@ -85,9 +87,11 @@ class NewsController extends Controller
      */
     public function update(UpdateRequest $request, News $news)
     {
-        $data = $request->validated() + ['slug' => Str::slug($request->input('title'))];
-
-        $updated = $news->fill($data)->save();
+        $validated = $request->validated();
+        if ($request->hasFile('image')) {
+            $validated['image'] = app(UploadService::class)->saveFile($request->file('image'));
+        }
+        $updated = $news->fill($validated)->save();
         if ($updated) {
             $news->categories()->sync($request->input('categories'));
             return redirect()->route('admin.news.index')

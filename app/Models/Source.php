@@ -11,15 +11,10 @@ class Source extends Model
 
     protected $table = 'sources';
 
-    public static $availableFields = [
-        'id',
-        'title',
-        'description',
-        'created_at'
-    ];
-
     protected $fillable = [
         'title',
-        'description'
+        'link',
+        'description',
+        'image',
     ];
 }

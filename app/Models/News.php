@@ -13,22 +13,18 @@ class News extends Model
 
     protected $table = 'news';
 
-    public static $availableFields = [
-        'id',
-        'title',
-        'slug',
-        'author',
-        'status',
-        'description',
-        'created_at'
-    ];
-
     protected $fillable = [
         'title',
         'slug',
         'author',
         'status',
-        'description'
+        'isImage',
+        'image',
+        'description',
+        'source_id',
+        'link',
+        'guid',
+        'created_at',
     ];
 
     public function getTitleAttribute($value)

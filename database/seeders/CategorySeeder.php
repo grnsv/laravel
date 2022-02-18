@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
-use Faker\Factory;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -16,23 +14,6 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert($this->getData());
-    }
-
-    private function getData(): array
-    {
-        $data = [];
-        $faker = Factory::create();
-
-        for ($i = 0; $i < 10; $i++) {
-            $title = $faker->sentence(3);
-            $data[] = [
-                'title' => $title,
-                'slug' => Str::slug($title),
-                'description' => $faker->text(100),
-            ];
-        }
-
-        return $data;
+        Category::factory()->count(10)->create();
     }
 }

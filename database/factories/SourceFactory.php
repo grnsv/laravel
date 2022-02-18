@@ -15,7 +15,9 @@ class SourceFactory extends Factory
     {
         return [
             'title' => $this->faker->word(),
-            'description' => $this->faker->text(50)
+            'link' => $this->faker->url(),
+            'description' => $this->faker->text(50),
+            'image' => $this->faker->url(),
         ];
     }
 }

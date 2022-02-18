@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
-use Faker\Factory;
+use App\Models\Source;
 use Illuminate\Database\Seeder;
 
 class SourceSeeder extends Seeder
@@ -15,21 +14,6 @@ class SourceSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sources')->insert($this->getData());
-    }
-
-    private function getData(): array
-    {
-        $data = [];
-        $faker = Factory::create();
-
-        for ($i = 0; $i < 10; $i++) {
-            $data[] = [
-                'title' => $faker->word(),
-                'description' => $faker->text(50),
-            ];
-        }
-
-        return $data;
+        Source::factory()->count(10)->create();
     }
 }

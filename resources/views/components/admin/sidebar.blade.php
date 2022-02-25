@@ -18,7 +18,7 @@
             <li class="nav-item">
                 <a class="nav-link @if(request()->routeIs('admin.news.*')) active @endif"
                     href="{{ route('admin.news.index') }}">
-                    <span data-feather="file"></span>
+                    <span data-feather="file-text"></span>
                     Новости
                 </a>
             </li>
@@ -27,6 +27,13 @@
                     href="{{ route('admin.users.index') }}">
                     <span data-feather="users"></span>
                     Пользователи
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if(request()->routeIs('admin.feedbacks.*')) active @endif"
+                    href="{{ route('admin.feedbacks.index') }}">
+                    <span data-feather="message-square"></span>
+                    Отзывы
                 </a>
             </li>
         </ul>

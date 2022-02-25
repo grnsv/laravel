@@ -15,14 +15,14 @@ class NewsAdminTest extends TestCase
     {
         $response = $this->get(route('admin.news.index'));
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function testNewsCreateAvailable()
     {
         $response = $this->get(route('admin.news.create'));
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function testNewsStore()

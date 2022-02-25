@@ -14,14 +14,14 @@ class CategoryAdminTest extends TestCase
     {
         $response = $this->get(route('admin.categories.index'));
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function testCategoryCreateAvailable()
     {
         $response = $this->get(route('admin.categories.create'));
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function testCategoryStore()

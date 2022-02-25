@@ -13,11 +13,11 @@ class FeedbackTest extends TestCase
     {
         $faker = Factory::create();
         $data = [
-            'username' => $faker->userName() . '12345',
+            'author' => $faker->userName() . '12345',
             'feedback' => $faker->text(100),
         ];
-        $response = $this->post('/feedback', $data);
+        $response = $this->post('/feedbacks', $data);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 }

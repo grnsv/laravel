@@ -4,15 +4,24 @@
             <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
                     <h4 class="text-white">О сайте</h4>
-                    <p class="text-muted">Добро пожаловать на сайт о новостях со всех концов света</p>
+                    <p class="text-muted navbar-text">Добро пожаловать на сайт о новостях со всех концов света</p>
                 </div>
                 <div class="col-sm-4 offset-md-1 py-4">
                     <h4 class="text-white">Меню</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ route('index') }}" class="text-white">Главная</a></li>
-                        <li><a href="{{ route('news.index') }}" class="text-white">Новости</a></li>
-                        @include('inc.file')
-                    </ul>
+                    <nav class="navbar-dark navbar-expand-md">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="{{ route('index') }}" class="nav-link">Главная</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('news.index') }}" class="nav-link">Новости</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('feedbacks.index') }}" class="nav-link">Отзывы</a>
+                            </li>
+                            @include('inc.file')
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

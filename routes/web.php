@@ -4,14 +4,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\Account\IndexController as AccountController;
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\NewsController as AdminNewsController;
-use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Admin\ParserController;
-use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\Admin\ParserController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Account\IndexController as AccountController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('/categories', AdminCategoryController::class);
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/users', AdminUserController::class);
+        Route::group(['as' => 'feedbacks.', 'prefix' => 'feedbacks'], function () {
+            Route::get('/', [AdminFeedbackController::class, 'index'])->name('index');
+            Route::delete('/{id}', [AdminFeedbackController::class, 'delete']);
+        });
     });
 });
 
@@ -47,7 +52,10 @@ Route::group(['as' => 'news.', 'prefix' => 'news'], function () {
     Route::get('/show/{news:slug}', [NewsController::class, 'show'])->name('show');
 });
 
-Route::post('/feedback', [FeedbackController::class, 'success'])->name('feedback');
+Route::group(['as' => 'feedbacks.', 'prefix' => 'feedbacks'], function () {
+    Route::get('/', [FeedbackController::class, 'index'])->name('index');
+    Route::post('/', [FeedbackController::class, 'create'])->name('create');
+});
 
 Route::post('/order', [OrderController::class, 'success'])->name('order');
 

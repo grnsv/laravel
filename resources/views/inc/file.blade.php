@@ -1,14 +1,18 @@
 <!-- Authentication Links -->
 @guest
 @if (Route::has('login'))
-<li><a class="text-white" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+</li>
 @endif
 @else
 @if (Auth::user()->is_admin)
-<li><a class="text-white" href="{{ route('admin.index') }}">В админку</a></li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.index') }}">В админку</a>
+</li>
 @endif
-<li>
-    <a class="text-white" href="{{ route('logout') }}"
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('logout') }}"
         onclick="event.preventDefault();document.getElementById('logout-form').submit();">
         {{ __('Logout') }}
     </a>

@@ -44,13 +44,13 @@
         </fieldset>
     </form>
     <br>
-    <form action="{{ route('feedback') }}" method="post">
+    <form action="{{ route('feedbacks.create') }}" method="post">
         @csrf
         <fieldset class="form-group border p-2">
             <legend>Форма обратной связи</legend>
             <div class="form-group">
-                <label for="username">Имя пользователя</label>
-                <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}"
+                <label for="author">Имя пользователя</label>
+                <input type="text" name="author" id="author" class="form-control" value="{{ Auth::user()->name }}"
                     required>
             </div>
             <div class="form-group">

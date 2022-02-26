@@ -31,8 +31,8 @@ class AddImageFieldInNewsTable extends Migration
     {
         Schema::table('news', function (Blueprint $table) {
             $table->dropColumn('image');
-            $table->dropIndex('slug');
-            $table->dropIndex('status');
+            $table->dropIndex(['slug']);
+            $table->dropIndex(['status']);
         });
     }
 }

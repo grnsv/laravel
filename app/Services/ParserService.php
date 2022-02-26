@@ -14,10 +14,12 @@ use Orchestra\Parser\Xml\Facade as XmlParser;
 
 class ParserService implements Parser
 {
+    private string $url;
     private Document $document;
 
     public function setLink(string $link): Parser
     {
+        $this->url = $link;
         $this->document = XmlParser::load($link);
         return $this;
     }
@@ -47,13 +49,14 @@ class ParserService implements Parser
             throw new Exception("Ресурс не является источником новостей формата RSS");
         }
 
-        $source = Source::where('title', '=', $xml['title'])->first();
+        $source = Source::where('url', '=', $this->url)->first();
         if ($source === null) {
             $source = Source::create([
-                'title' => $xml['title'],
-                'link' => $xml['link'],
+                'url'         => $this->url,
+                'title'       => $xml['title'],
+                'link'        => $xml['link'],
                 'description' => $xml['description'],
-                'image' => $xml['image'],
+                'image'       => $xml['image'],
             ]);
         }
 

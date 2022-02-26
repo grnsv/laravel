@@ -12,6 +12,7 @@ class Source extends Model
     protected $table = 'sources';
 
     protected $fillable = [
+        'url',
         'title',
         'link',
         'description',

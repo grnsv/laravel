@@ -18,32 +18,18 @@
 @section('content')
 <div class="container">
     @include('inc.message')
-    <form action="{{ route('order') }}" method="post">
+    <form action="{{ route('source') }}" method="post" class="mb-4">
         @csrf
         <fieldset class="form-group border p-2">
-            <legend>Форма заказа на получение выгрузки данных из какого-либо источника</legend>
+            <legend>Форма добавления источника новостей</legend>
             <div class="form-group">
-                <label for="customer">Имя заказчика</label>
-                <input type="text" name="customer" id="customer" class="form-control" value="{{ old('customer') }}"
-                    required>
+                <label for="source">Источник в формате RSS</label>
+                <input type="text" name="source" id="source" class="form-control"
+                    placeholder="https://news.yandex.ru/computers.rss" value="{!! old('source') !!}" required>
             </div>
-            <div class="form-group">
-                <label for="tel">Номер телефона</label>
-                <input type="tel" name="tel" id="tel" class="form-control" value="{{ old('tel') }}">
-            </div>
-            <div class="form-group">
-                <label for="email">Email-адрес</label>
-                <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
-            </div>
-            <div class="form-group">
-                <label for="info">Информация о том, что нужно получить</label>
-                <textarea name="info" id="info" class="form-control">{!! old('info') !!}</textarea>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-success" style="float: right;">Отправить</button>
+            <button type="submit" class="btn btn-success mt-2" style="float: right;">Отправить</button>
         </fieldset>
     </form>
-    <br>
     <form action="{{ route('feedbacks.create') }}" method="post">
         @csrf
         <fieldset class="form-group border p-2">
@@ -55,10 +41,10 @@
             </div>
             <div class="form-group">
                 <label for="feedback">Комментарий / отзыв по работе проекта</label>
-                <textarea name="feedback" id="feedback" class="form-control">{!! old('feedback') !!}</textarea>
+                <textarea name="feedback" id="feedback" class="form-control"
+                    placeholder="Прошу выдать мне права администратора">{!! old('feedback') !!}</textarea>
             </div>
-            <br>
-            <button type="submit" class="btn btn-success" style="float: right;">Отправить</button>
+            <button type="submit" class="btn btn-success mt-2" style="float: right;">Отправить</button>
         </fieldset>
     </form>
 </div>

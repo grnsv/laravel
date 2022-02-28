@@ -44,6 +44,7 @@ class NewsController extends Controller
         $validated = $request->validated();
         if ($request->hasFile('image')) {
             $validated['image'] = app(UploadService::class)->saveFile($request->file('image'));
+            $validated['isImage'] = true;
         }
         $created = News::create($validated);
         if ($created) {
@@ -90,6 +91,7 @@ class NewsController extends Controller
         $validated = $request->validated();
         if ($request->hasFile('image')) {
             $validated['image'] = app(UploadService::class)->saveFile($request->file('image'));
+            $validated['isImage'] = true;
         }
         $updated = $news->fill($validated)->save();
         if ($updated) {

@@ -18,7 +18,7 @@
 
         @forelse ($categories as $category)
         <div class="col">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm h-100">
                 <a href="{{ route('news.index', ['category' => $category]) }}" class="link-dark text-decoration-none">
                     <div class="card-body">
                         <h3>{{ $category->title }}</h3>

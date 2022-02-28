@@ -18,9 +18,11 @@
 
         @forelse ($newsList as $news)
         <div class="col">
-            <div class="card shadow-sm">
-                @if($news->image)
+            <div class="card shadow-sm h-100">
+                @if($news->isImage)
                 <img src="{{ Storage::disk('public')->url($news->image) }}" alt="image">
+                @elseif ($news->image)
+                <img src="{{ $news->image }}" alt="image">
                 @else
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
@@ -30,7 +32,7 @@
                         dy=".3em">Thumbnail</text>
                 </svg>
                 @endif
-                <div class="card-body">
+                <div class="card-body overflow-hidden">
                     <h6>
                         <a href="{{ route('news.show', ['news' => $news]) }}">
                             <strong>{{ $news->title }}</strong>

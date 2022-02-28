@@ -17,10 +17,32 @@
     <h2>{{ $news->title }}</h2>
     <h4>Категории:
         @foreach ($news->categories as $category)
-        {{ $category->title }},
+        <a class="btn btn-primary" href="{{ route('news.index', ['category' => $category]) }}">
+            {{ $category->title }}
+        </a>
         @endforeach
     </h4>
     <p>Автор: {{ $news->author }} &nbsp; Дата добавления: {{ $news->created_at }}</p>
     <p>{!! $news->description !!}</p>
+    @if ($news->source)
+    <div class="card shadow-sm mt-5">
+        @if($news->source->image)
+        <a href="{{ $news->source->link }}">
+            <img src="{{ $news->source->image }}" alt="image">
+        </a>
+        @endif
+        <div class="card-body">
+            <h6><a href="{{ $news->source->link }}">{{ $news->source->title }}</a></h6>
+            <p class="card-text">{{ $news->source->description }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{{ $news->link }}" class="btn btn-sm btn-outline-secondary">
+                        Смотреть подробнее
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
 @endsection

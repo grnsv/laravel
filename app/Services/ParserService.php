@@ -66,7 +66,6 @@ class ParserService implements Parser
             $news['status'] = 'active';
             $news['created_at'] = date('Y-m-d H:i:s', strtotime($news['pubDate']));
             unset($news['pubDate']);
-            $news['isImage'] = !!($news['image']);
             $news['source_id'] = $source->id;
             $categories = array_map(
                 fn ($category) => Category::firstOrCreate(['title' => $category])->id,
@@ -75,7 +74,7 @@ class ParserService implements Parser
             unset($news['category']);
             $created = News::firstOrCreate($news);
             if ($created) {
-                $created->categories()->attach($categories);
+                $created->categories()->sync($categories);
             } else {
                 throw new Exception("Не удалось добавить новость");
             }

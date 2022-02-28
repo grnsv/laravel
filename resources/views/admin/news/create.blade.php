@@ -53,3 +53,20 @@
     <button type="submit" class="btn btn-success" style="float: right;">Сохранить</button>
 </form>
 @endsection
+
+@push('js')
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#description' ), {
+            ckfinder: {
+                uploadUrl: '/ckfinder/connector?command=QuickUpload&type=Images&responseType=json',
+                options: {
+                    resourceType: 'Images',
+                }
+            },
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+@endpush

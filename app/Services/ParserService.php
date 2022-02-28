@@ -21,6 +21,9 @@ class ParserService implements Parser
     {
         $this->url = $link;
         $this->document = XmlParser::load($link);
+        $file = file_get_contents($link);
+        $xml = simplexml_load_string($file);
+        $this->document->setContent($xml);
         return $this;
     }
 

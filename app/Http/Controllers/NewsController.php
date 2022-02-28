@@ -15,7 +15,10 @@ class NewsController extends Controller
             $newsList = $category->news()->where('status', '=', 'active')->paginate(9);
             return view('news.index', ['newsList' => $newsList]);
         }
-        $categories = Category::select(Category::$availableFields)->paginate(15);
+        $categories = Category::select(Category::$availableFields)
+            ->withCount('news')
+            ->orderBy('news_count', 'desc')
+            ->paginate(15);
         return view('categories', ['categories' => $categories]);
     }
 

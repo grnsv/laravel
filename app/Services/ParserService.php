@@ -69,6 +69,14 @@ class ParserService implements Parser
             $news['status'] = 'active';
             $news['created_at'] = date('Y-m-d H:i:s', strtotime($news['pubDate']));
             unset($news['pubDate']);
+            if (!$news['image']) {
+                $dom = new \DOMDocument;
+                $dom->loadHTML($news['description']);
+                $img = $dom->getElementsByTagName('img')->item(0);
+                if ($img) {
+                    $news['image'] = $img->attributes->getNamedItem("src")->value;
+                }
+            }
             $news['source_id'] = $source->id;
             $categories = array_map(
                 fn ($category) => Category::firstOrCreate(['title' => $category])->id,

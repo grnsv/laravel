@@ -32,14 +32,14 @@
                         dy=".3em">Thumbnail</text>
                 </svg>
                 @endif
-                <div class="card-body overflow-hidden">
+                <div class="card-body">
                     <h6>
                         <a href="{{ route('news.show', ['news' => $news]) }}">
                             <strong>{{ $news->title }}</strong>
                         </a>
                     </h6>
                     <p><strong>Автор:</strong> {{ $news->author }}</p>
-                    <p class="card-text">{!! $news->description !!}</p>
+                    <p class="card-text">{!! preg_replace("/<img[^>]+\>/i", "", $news->description) !!}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <a href="{{ route('news.show', ['news' => $news]) }}"

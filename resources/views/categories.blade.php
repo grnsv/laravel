@@ -14,22 +14,24 @@
 
 @section('content')
 <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <ul style="list-style: none;">
-            @forelse($categories as $category)
-            <li>
-                <h2>
-                    <a href="{{ route('news.index', ['category' => $category]) }}">{{ $category->title }}</a>
-                </h2>
-            </li>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-3">
 
-            @empty
-            <li>
-                <h2>Записей нет</h2>
-            </li>
+        @forelse ($categories as $category)
+        <div class="col">
+            <div class="card shadow-sm">
+                <a href="{{ route('news.index', ['category' => $category]) }}" class="link-dark text-decoration-none">
+                    <div class="card-body">
+                        <h3>{{ $category->title }}</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
 
-            @endforelse
-        </ul>
+        @empty
+        <h2>Записей нет</h2>
+
+        @endforelse
+
     </div>
     {{ $categories->links() }}
 </div>

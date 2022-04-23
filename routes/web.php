@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\FeedbackController;
